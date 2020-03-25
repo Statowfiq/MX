@@ -4,6 +4,7 @@ import Select from "./Select";
 import Header from "./Header";
 import Chart from "./Chart";
 import Grid from "@material-ui/core/Grid";
+import Footer from "./Footer.js";
 
 const useStyles = makeStyles({
   root: {
@@ -25,19 +26,19 @@ const useStyles = makeStyles({
 
 export default function Dashboard() {
   const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
 
   return (
     <>
       <Header />
       <Grid container spacing={24}>
-        <Grid item xs={8}>
+        <Grid item xs={9}>
           <Chart />
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={3}>
           <Select />
         </Grid>
       </Grid>
+      <Footer />
     </>
   );
 }

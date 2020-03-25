@@ -7,7 +7,7 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import CardHeader from "@material-ui/core/CardHeader";
-import Money from "./money.jpg";
+import Exchange from "./compare_arrows-24px.svg";
 
 const currencies = [
   {
@@ -30,16 +30,14 @@ const currencies = [
 
 const useStyles = makeStyles(theme => ({
   root: {
-    "& .MuiTextField-root": {
-      margin: theme.spacing(1),
-      width: 200
-    },
-    margin: "20px"
+    // "& .MuiTextField-root": {
+    //   margin: theme.spacing(1),
+    //   width: 200
+    // },
+    margin: "20px",
+    marginLeft: "40px"
   },
   button: {
-    // backgroundColor: "green",
-    // color: "white",
-    // margin: theme.spacing(1)
     float: "center"
   }
 }));
@@ -55,7 +53,7 @@ export default function Select() {
     <div className="Card">
       <Card className={classes.root} variant="outlined">
         <CardHeader title="Exchange Money Now" />
-        <img src={Money} style={{ width: "150px", height: "80px" }} />
+        {/* <img src={Money} style={{ width: "150px", height: "80px" }} /> */}
         <CardContent>
           <form className={classes.root} noValidate autoComplete="off">
             <div>
@@ -65,7 +63,6 @@ export default function Select() {
                 label="From"
                 value={currency}
                 onChange={handleChange}
-                helperText="Please select your currency"
               >
                 {currencies.map(option => (
                   <MenuItem key={option.value} value={option.value}>
@@ -73,13 +70,16 @@ export default function Select() {
                   </MenuItem>
                 ))}
               </TextField>
+              <img
+                src={Exchange}
+                style={{ width: "30px", height: "55px", margin: "3px" }}
+              />
               <TextField
                 id="standard-select-currency"
                 select
                 label="TO"
                 value={currency}
                 onChange={handleChange}
-                helperText="Please select your currency"
               >
                 {currencies.map(option => (
                   <MenuItem key={option.value} value={option.value}>
