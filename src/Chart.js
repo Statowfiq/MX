@@ -1,6 +1,9 @@
 import React, { useEffect } from "react";
 import axios from "axios";
 import { Line } from "react-chartjs-2";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import { makeStyles } from "@material-ui/core/styles";
 
 const data = {
   labels: ["January", "February", "March", "April", "May", "June", "July"],
@@ -29,7 +32,14 @@ const data = {
   ]
 };
 
+const useStyles = makeStyles({
+  root: {
+    height: "483px"
+  }
+});
+
 export default function Chart() {
+  const classes = useStyles();
   // displayName: "LineExample",
   const [rates, setRate] = React.useState([]);
   const fetchData = async () => {
@@ -56,12 +66,16 @@ export default function Chart() {
   }, []);
   return (
     <div style={{ margin: "20px" }}>
-      <Line data={data} />
-      {/* <p>
+      <Card className={classes.root}>
+        <CardContent>
+          <Line data={data} />
+          {/* <p>
         {rates.map(rate => (
           <li>{rate.rates}</li>
         ))}
       </p> */}
+        </CardContent>
+      </Card>
     </div>
   );
 }

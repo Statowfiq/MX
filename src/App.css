@@ -3,7 +3,8 @@
 }
 .Card {
   text-align: center;
-  float: right;
+  /* float: right; */
+  height: "500px";
   /* width: 30%;
   height: 100%; */
 }

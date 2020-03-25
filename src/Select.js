@@ -35,10 +35,12 @@ const useStyles = makeStyles(theme => ({
     //   width: 200
     // },
     margin: "20px",
-    marginLeft: "40px"
+    marginLeft: "40px",
+    // marginTop: "50px",
+    height: "483px"
   },
   button: {
-    float: "center"
+    float: "right"
   }
 }));
 
@@ -51,56 +53,61 @@ export default function Select() {
 
   return (
     <div className="Card">
-      <Card className={classes.root} variant="outlined">
+      <Card className={classes.root}>
         <CardHeader title="Exchange Money Now" />
         {/* <img src={Money} style={{ width: "150px", height: "80px" }} /> */}
         <CardContent>
-          <form className={classes.root} noValidate autoComplete="off">
-            <div>
-              <TextField
-                id="standard-select-currency"
-                select
-                label="From"
-                value={currency}
-                onChange={handleChange}
-              >
-                {currencies.map(option => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label} {option.value}
-                  </MenuItem>
-                ))}
-              </TextField>
-              <img
-                src={Exchange}
-                style={{ width: "30px", height: "55px", margin: "3px" }}
-              />
-              <TextField
-                id="standard-select-currency"
-                select
-                label="TO"
-                value={currency}
-                onChange={handleChange}
-              >
-                {currencies.map(option => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label} {option.value}
-                  </MenuItem>
-                ))}
-              </TextField>
-              <TextField
-                required
-                id="standard-required"
-                label="Enter Amount"
-                // helperText="Enter Amount"
-              />
-            </div>
-          </form>
+          {/* <form className={classes.root} noValidate autoComplete="off"> */}
+          <div>
+            <TextField
+              id="standard-select-currency"
+              select
+              label="From"
+              value={currency}
+              onChange={handleChange}
+            >
+              {currencies.map(option => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label} {option.value}
+                </MenuItem>
+              ))}
+            </TextField>
+            <img
+              src={Exchange}
+              style={{ width: "30px", height: "55px", margin: "3px" }}
+            />
+            <TextField
+              id="standard-select-currency"
+              select
+              label="TO"
+              value={currency}
+              onChange={handleChange}
+            >
+              {currencies.map(option => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label} {option.value}
+                </MenuItem>
+              ))}
+            </TextField>
+            <TextField
+              required
+              id="standard-required"
+              label="Enter Amount"
+              // helperText="Enter Amount"
+            />
+          </div>
         </CardContent>
-        {/* <CardActions style={{ float: "right" }}> */}
-        <Button className={classes.button} variant="contained" color="primary">
-          Next
-        </Button>
-        {/* </CardActions> */}
+        <CardActions style={{ float: "right" }}>
+          <Button
+            className={classes.button}
+            variant="contained"
+            color="primary"
+          >
+            Next
+          </Button>
+
+          {/* </form> */}
+        </CardActions>
       </Card>
     </div>
   );

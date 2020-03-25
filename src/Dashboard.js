@@ -8,8 +8,7 @@ import Footer from "./Footer.js";
 
 const useStyles = makeStyles({
   root: {
-    minWidth: 275,
-    height: "100%"
+    // height: "489px"
   },
   bullet: {
     display: "inline-block",
