@@ -40,10 +40,36 @@ export default function Details(props) {
             label="Name"
             onChange={handlename}
             value={name}
+            variant="outlined"
           />
-          <TextField required id="standard-required" label="Contact  number" />
-          <TextField required id="standard-required" label="email" />
-          <TextField required id="standard-required" label=" GovtId Number" />
+          <br />
+          <br />
+          <TextField
+            required
+            id="standard-required"
+            label="Contact  number"
+            variant="outlined"
+          />
+          <br />
+          <br />
+          <TextField
+            required
+            id="standard-required"
+            label="E-mail"
+            variant="outlined"
+          />{" "}
+          <br />
+          <br />
+          <TextField
+            required
+            id="standard-required"
+            label=" GovtId Number"
+            variant="outlined"
+          />
+          <p style={{ fontSize: "11px" }}>
+            Please enter the valid Govt ID number this will be verified at the
+            time of delivery
+          </p>
         </CardContent>
         <CardActions style={{ float: "right" }}>
           <Button
@@ -53,7 +79,7 @@ export default function Details(props) {
             color="primary"
             onClick={handleNext}
           >
-            Next
+            Continue
           </Button>
         </CardActions>
       </div>

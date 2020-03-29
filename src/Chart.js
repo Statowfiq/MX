@@ -10,7 +10,7 @@ import currencies from "./currencies.json";
 
 const useStyles = makeStyles({
   root: {
-    height: "550px"
+    height: "600px"
   }
 });
 
@@ -20,9 +20,16 @@ export default function Chart() {
   // const [data, setData] = useState({ rates: [] });
   const [xaxis, setxaxis] = useState([]);
   const [yaxis, setyaxis] = useState([]);
-  const [currency, setCurrency] = React.useState("CAD");
+  const [basecurrency, setbCurrency] = React.useState("USD");
+  const [tocurrency, setCurrency] = React.useState("CAD");
 
-  const handleChange = event => {
+  const handleBChange = event => {
+    setbCurrency(event.target.value);
+
+    // foo();
+  };
+
+  const handleTChange = event => {
     setCurrency(event.target.value);
 
     // foo();
@@ -83,27 +90,43 @@ export default function Chart() {
   async function foo() {
     //  const base = "USD";
     const result = await axios(
-      `https://api.exchangeratesapi.io/history?start_at=2019-03-01&end_at=2019-03-28&symbols=${currency}&base=USD`
+      `https://api.exchangeratesapi.io/history?start_at=2019-03-01&end_at=2019-03-28&symbols=${tocurrency}&base=${basecurrency}`
     );
 
     setxaxis(Object.keys(sortKeys(result.data.rates)));
-    setyaxis(Object.values(result.data.rates).map(x => x[currency]));
+    setyaxis(Object.values(result.data.rates).map(x => x[tocurrency]));
+    // console.log(Object.values(result.data.rates).map(x => x[currency]));
   }
   useEffect(() => {
     foo();
-  }, [currency]);
+  }, [basecurrency, tocurrency]);
 
   return (
     <div style={{ margin: "20px" }}>
       <Card className={classes.root}>
         <CardContent>
           <TextField
-            style={{ width: "350px", float: "left" }}
-            id="standard-select-currency"
+            style={{ float: "left", width: "110px" }}
+            id="Base Currency"
             select
-            label="Select a currency to see the exchange rate "
-            value={currency}
-            onChange={handleChange}
+            label="Base Currency"
+            value={basecurrency}
+            onChange={handleBChange}
+          >
+            {currencies.map(option => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.value}
+              </MenuItem>
+            ))}
+          </TextField>
+
+          <TextField
+            style={{ float: "right", width: "110px" }}
+            id="Currency rates with respect to base currency"
+            select
+            label="TO Currency "
+            value={tocurrency}
+            onChange={handleTChange}
           >
             {currencies.map(option => (
               <MenuItem key={option.value} value={option.value}>

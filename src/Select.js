@@ -11,7 +11,10 @@ import { Link } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 import currencies from "./currencies.json";
 import axios from "axios";
+import Grid from "@material-ui/core/Grid";
 import { useApolloClient } from "@apollo/react-hooks";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import { mergeClasses } from "@material-ui/styles";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -22,15 +25,27 @@ const useStyles = makeStyles(theme => ({
   },
   button: {
     float: "right"
+  },
+  container: {
+    display: "flex"
+  },
+  divL: {
+    boxSizing: "borderBox",
+    padding: "10px"
+    //  background: "#ffe9c6"
+    /* OPTIONAL WIDTH
+    width: 40% */
+  },
+  divR: {
+    boxSizing: "borderBox",
+    padding: "10px",
+    float: "right"
+    // fontWeight: "bold"
+    // background: "#ffdad8"
+    /* OPTIONAL WIDTH
+    width: 60% */
   }
 }));
-
-// function validate(amount) {
-//   // true means invalid, so our conditions got reversed
-//   return {
-//     amount: Number(amount) <= 0
-//   };
-// }
 
 export default function Select(props) {
   // const errors = validate(amount);
@@ -83,15 +98,16 @@ export default function Select(props) {
       <CardHeader title="Exchange Money Now" />
       <CardContent>
         <form>
-          {/* {fromcurrency === tocurrency
+          {fromcurrency === tocurrency
             ? alert("Select different from and to currencies")
-            : null} */}
+            : null}
           <TextField
             id="standard-select-currency"
             select
             label="From"
             value={fromcurrency}
             onChange={handleFChange}
+            style={{ marginRight: "38px" }}
           >
             {currencies.map(option => (
               <MenuItem key={option.value} value={option.value}>
@@ -101,7 +117,7 @@ export default function Select(props) {
           </TextField>
           <img
             src={Exchange}
-            style={{ width: "75px", height: "60px", margin: "5px" }}
+            style={{ width: "42px", height: "60px", margin: "5px" }}
           />
           <TextField
             id="standard-select-currency"
@@ -109,6 +125,7 @@ export default function Select(props) {
             label="TO"
             value={tocurrency}
             onChange={handleTChange}
+            style={{ marginLeft: "38px" }}
           >
             {currencies.map(option => (
               <MenuItem key={option.value} value={option.value}>
@@ -116,16 +133,73 @@ export default function Select(props) {
               </MenuItem>
             ))}
           </TextField>
-
+          <br />
           <TextField
             required
             id="standard-required"
             label="Enter Amount"
-            // helperText="Enter Amount"
+            //helperText="Enter Amount"
             onChange={handleamount}
             value={amount}
+            variant="outlined"
+            style={{ width: "238px" }}
           />
-          <Typography>
+          <br />
+          <br />
+          <Grid container spacing={24}>
+            <Grid item xs={8} style={{ textAlign: "left" }}>
+              <p>Exchange rate</p>
+            </Grid>
+            <Grid item xs={2} style={{ textAlign: "right" }}>
+              <p style={{ fontWeight: "bold" }}>{exchamount.toFixed(2)}</p>
+            </Grid>
+            <Grid item xs={2} style={{ textAlign: "right" }}>
+              <p>{tocurrency}</p>
+            </Grid>
+          </Grid>
+          <Grid container spacing={24}>
+            <Grid item xs={8} style={{ textAlign: "left" }}>
+              <p>Equivalent amount</p>
+            </Grid>
+            <Grid item xs={2} style={{ textAlign: "right" }}>
+              <p style={{ fontWeight: "bold" }}>
+                {amount > 0
+                  ? Number(exchamount.toFixed(2) * Number(amount)).toFixed(2)
+                  : 0}
+              </p>
+            </Grid>
+            <Grid item xs={2} style={{ textAlign: "right" }}>
+              <p>{tocurrency}</p>
+            </Grid>
+          </Grid>
+          <Grid container spacing={24}>
+            <Grid item xs={8} style={{ textAlign: "left" }}>
+              <p>Fee</p>
+            </Grid>
+            <Grid item xs={2} style={{ textAlign: "right" }}>
+              <p style={{ fontWeight: "bold" }}>
+                {amount > 0 ? Number(amount) * 0.02 : 0}
+              </p>
+            </Grid>
+            <Grid item xs={2} style={{ textAlign: "right" }}>
+              <p>{fromcurrency}</p>
+            </Grid>
+          </Grid>
+          <Grid container spacing={24}>
+            <Grid item xs={8} style={{ textAlign: "left" }}>
+              <p>Total payable amount</p>
+            </Grid>
+            <Grid item xs={2} style={{ textAlign: "right" }}>
+              <p style={{ fontWeight: "bold" }}>
+                {" "}
+                {amount > 0 ? Number(amount) * 0.02 + Number(amount) : 0}
+              </p>
+            </Grid>
+            <Grid item xs={2} style={{ textAlign: "right" }}>
+              <p>{fromcurrency}</p>
+            </Grid>
+          </Grid>
+          {/* <Typography variant="subtitle1">
             Exchange rate:
             {exchamount.toFixed(2)} {tocurrency}
           </Typography>
@@ -144,7 +218,7 @@ export default function Select(props) {
             Total payable amount:
             {amount > 0 ? Number(amount) * 0.02 + Number(amount) : 0}{" "}
             {fromcurrency}
-          </Typography>
+          </Typography> */}
         </form>
       </CardContent>
       <CardActions style={{ float: "right" }}>
@@ -157,7 +231,7 @@ export default function Select(props) {
           onClick={handleNext}
           disabled={isDisabled}
         >
-          Next
+          Continue
         </Button>
         {/* </Link> */}
       </CardActions>

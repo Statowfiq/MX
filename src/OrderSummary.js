@@ -12,8 +12,9 @@ import Card from "@material-ui/core/Card";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
-import { AMOUNT, NAME } from "./Queries";
+import { AMOUNT, NAME, FROMCURRENCY, TOCURRENCY, EXCHAMOUNT } from "./Queries";
 import { useApolloClient, useQuery } from "@apollo/react-hooks";
+import Grid from "@material-ui/core/Grid";
 
 const GreenRadio = withStyles({
   root: {
@@ -47,6 +48,9 @@ export default function OrderSummary(props) {
 
   const { data: amount } = useQuery(AMOUNT);
   const { data: name } = useQuery(NAME);
+  const { data: fromcurrency } = useQuery(FROMCURRENCY);
+  const { data: tocurrency } = useQuery(TOCURRENCY);
+  const { data: exchamount } = useQuery(EXCHAMOUNT);
   const handleChange = event => {
     setSelectedValue(event.target.value);
   };
@@ -57,9 +61,71 @@ export default function OrderSummary(props) {
         <CardContent>
           <h4>Order details</h4>
           <p>
-            Dear {name.name} your order of {amount.amount} is confirmed please
-            select the payment mode to proceed
+            Dear {name.name} ,please confirm your order details and proceed with
+            the payment.
           </p>
+          <div style={{ backgroundColor: "#ffe9c6" }}>
+            <Grid container spacing={24}>
+              <Grid item xs={8} style={{ textAlign: "left" }}>
+                <p>Exchange rate</p>
+              </Grid>
+              <Grid item xs={2} style={{ textAlign: "right" }}>
+                <p style={{ fontWeight: "bold" }}>
+                  {exchamount.exchamount.toFixed(2)}
+                </p>
+              </Grid>
+              <Grid item xs={2} style={{ textAlign: "right" }}>
+                <p>{tocurrency.tocurrency}</p>
+              </Grid>
+            </Grid>
+            <Grid container spacing={24}>
+              <Grid item xs={8} style={{ textAlign: "left" }}>
+                <p>Equivalent amount</p>
+              </Grid>
+              <Grid item xs={2} style={{ textAlign: "right" }}>
+                <p style={{ fontWeight: "bold" }}>
+                  {amount.amount > 0
+                    ? Number(
+                        exchamount.exchamount.toFixed(2) * Number(amount.amount)
+                      ).toFixed(2)
+                    : 0}
+                </p>
+              </Grid>
+              <Grid item xs={2} style={{ textAlign: "right" }}>
+                <p>{tocurrency.tocurrency}</p>
+              </Grid>
+            </Grid>
+            <Grid container spacing={24}>
+              <Grid item xs={8} style={{ textAlign: "left" }}>
+                <p>Fee</p>
+              </Grid>
+              <Grid item xs={2} style={{ textAlign: "right" }}>
+                <p style={{ fontWeight: "bold" }}>
+                  {amount.amount > 0 ? Number(amount.amount) * 0.02 : 0}
+                </p>
+              </Grid>
+              <Grid item xs={2} style={{ textAlign: "right" }}>
+                <p>{fromcurrency.fromcurrency}</p>
+              </Grid>
+            </Grid>
+            <Grid container spacing={24}>
+              <Grid item xs={8} style={{ textAlign: "left" }}>
+                <p>Total payable amount</p>
+              </Grid>
+              <Grid item xs={2} style={{ textAlign: "right" }}>
+                <p style={{ fontWeight: "bold" }}>
+                  {" "}
+                  {amount.amount > 0
+                    ? Number(amount.amount) * 0.02 + Number(amount.amount)
+                    : 0}
+                </p>
+              </Grid>
+              <Grid item xs={2} style={{ textAlign: "right" }}>
+                <p>{fromcurrency.fromcurrency}</p>
+              </Grid>
+            </Grid>
+          </div>
+          <h4>Select a payment option to proceed</h4>
           <FormControl component="fieldset">
             <RadioGroup
               aria-label="payment"

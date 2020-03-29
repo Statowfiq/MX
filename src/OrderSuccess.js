@@ -5,6 +5,7 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import { AMOUNT, NAME, FROMCURRENCY } from "./Queries";
 import { useApolloClient, useQuery } from "@apollo/react-hooks";
+import Success from "./success.svg";
 
 const useStyles = makeStyles({
   footer: {
@@ -27,12 +28,16 @@ export default function OrderSuccess() {
     <>
       <div>
         <CardContent>
+          <img
+            src={Success}
+            style={{ width: "42px", height: "60px", margin: "5px" }}
+          />
           <h4>Order Successfull</h4>
           <p>
-            Congratilations, {name.name} Your order of {amount.amount}{" "}
-            {fromcurrency.fromcurrency} is plaed successfully .For doorstep
-            delivery cash will be deliverd within 1 hour.Thank you for placing
-            your order with us.
+            Congratulations, {name.name} Your order of {amount.amount}{" "}
+            {fromcurrency.fromcurrency} has been successfully. For doorstep
+            delivery cash will be deliverd within 1 hour at the requested
+            address.Thank you for placing your order with us. Happy Trading
           </p>
         </CardContent>
       </div>

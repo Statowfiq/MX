@@ -87,7 +87,7 @@ export default function DeliveryOpts(props) {
           color="primary"
           onClick={handleNext}
         >
-          Next
+          Continue
         </Button>
         {/* </Link> */}
       </CardActions>

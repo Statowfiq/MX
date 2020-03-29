@@ -24,7 +24,7 @@ const useStyles = makeStyles({
     margin: "20px",
     marginLeft: "40px",
     // marginTop: "50px",
-    height: "550px"
+    height: "600px"
   },
   app: {
     textAlign: "center"
@@ -57,7 +57,6 @@ export default function Dashboard() {
           </Card>
         </Grid>
       </Grid>
-      <Footer />
     </div>
   );
 }

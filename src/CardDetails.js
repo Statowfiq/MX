@@ -33,7 +33,7 @@ export default function CardDetails() {
               variant="contained"
               color="primary"
             >
-              Next
+              Continue
             </Button>
           </Link>
         </CardActions>
