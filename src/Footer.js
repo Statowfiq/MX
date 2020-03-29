@@ -8,7 +8,8 @@ const useStyles = makeStyles({
     flexShrink: "0",
     // textAlign: "center",
     backgroundColor: "grey",
-    color: "white"
+    color: "white",
+    textAlign: "center"
   }
 });
 

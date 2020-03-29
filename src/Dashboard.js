@@ -5,21 +5,29 @@ import Header from "./Header";
 import Chart from "./Chart";
 import Grid from "@material-ui/core/Grid";
 import Footer from "./Footer.js";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import Location from "./Location";
+import Card from "@material-ui/core/Card";
+import DeliveryOpt from "./DeliveryOpt";
+import Details from "./Details.js";
+import OrderSummary from "./OrderSummary";
+import OrderSuccess from "./OrderSuccess";
+import CardDetails from "./CardDetails";
+import App from "./App.css";
 
 const useStyles = makeStyles({
   root: {
-    // height: "489px"
+    // "& .MuiTextField-root": {
+    //   margin: theme.spacing(1),
+    //   width: 200
+    // },
+    margin: "20px",
+    marginLeft: "40px",
+    // marginTop: "50px",
+    height: "550px"
   },
-  bullet: {
-    display: "inline-block",
-    margin: "0 2px",
-    transform: "scale(0.8)"
-  },
-  title: {
-    fontSize: 14
-  },
-  pos: {
-    marginBottom: 12
+  app: {
+    textAlign: "center"
   }
 });
 
@@ -27,17 +35,29 @@ export default function Dashboard() {
   const classes = useStyles();
 
   return (
-    <>
+    <div className={classes.app}>
       <Header />
       <Grid container spacing={24}>
-        <Grid item xs={9}>
+        <Grid item xs={8}>
           <Chart />
         </Grid>
-        <Grid item xs={3}>
-          <Select />
+        <Grid item xs={4}>
+          <Card className={classes.root}>
+            <Router>
+              <div>
+                <Route exact path="/" component={Select} />
+                <Route path="/loc" component={Location} />
+                <Route path="/delopt" component={DeliveryOpt} />
+                <Route path="/det" component={Details} />
+                <Route path="/summary" component={OrderSummary} />
+                <Route path="/success" component={OrderSuccess} />
+                <Route path="/carddet" component={CardDetails} />
+              </div>
+            </Router>
+          </Card>
         </Grid>
       </Grid>
       <Footer />
-    </>
+    </div>
   );
 }
