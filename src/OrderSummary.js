@@ -25,7 +25,9 @@ import Paper from "@material-ui/core/Paper";
 const StyledTableCell = withStyles(theme => ({
   head: {
     backgroundColor: "lightgrey",
-    color: "grey"
+    color: "grey",
+    padding: "10px",
+    paddingBottom: "5px"
   },
   body: {
     fontSize: 14,
@@ -49,9 +51,6 @@ function createData(desc, amount, currency) {
 const useStyles = makeStyles({
   table: {
     minWidth: 100
-  },
-  MuiTableCellRoot: {
-    padding: "0px"
   }
 });
 
