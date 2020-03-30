@@ -24,7 +24,8 @@ const useStyles = makeStyles({
     margin: "20px",
     marginLeft: "40px",
     // marginTop: "50px",
-    height: "600px"
+    height: "600px",
+    overflowY: "auto"
   },
   app: {
     textAlign: "center"
@@ -46,12 +47,11 @@ export default function Dashboard() {
             <Router>
               <div>
                 <Route exact path="/" component={Select} />
-                <Route path="/loc" component={Location} />
-                <Route path="/delopt" component={DeliveryOpt} />
-                <Route path="/det" component={Details} />
+                <Route path="/deliveryoption" component={DeliveryOpt} />
+                <Route path="/details" component={Details} />
                 <Route path="/summary" component={OrderSummary} />
                 <Route path="/success" component={OrderSuccess} />
-                <Route path="/carddet" component={CardDetails} />
+                <Route path="/carddetails" component={CardDetails} />
               </div>
             </Router>
           </Card>

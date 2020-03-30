@@ -33,7 +33,8 @@ export default function Details(props) {
     <>
       <div>
         <CardContent>
-          <h4>Enter the details</h4>
+          {/* <div style={{ padding: "24px" }}> */}
+          <h4>Personal Details</h4>
           <TextField
             required
             id="standard-required"
@@ -41,6 +42,7 @@ export default function Details(props) {
             onChange={handlename}
             value={name}
             variant="outlined"
+            style={{ width: "100%" }}
           />
           <br />
           <br />
@@ -49,6 +51,7 @@ export default function Details(props) {
             id="standard-required"
             label="Contact  number"
             variant="outlined"
+            style={{ width: "100%" }}
           />
           <br />
           <br />
@@ -57,7 +60,8 @@ export default function Details(props) {
             id="standard-required"
             label="E-mail"
             variant="outlined"
-          />{" "}
+            style={{ width: "100%" }}
+          />
           <br />
           <br />
           <TextField
@@ -65,13 +69,15 @@ export default function Details(props) {
             id="standard-required"
             label=" GovtId Number"
             variant="outlined"
+            style={{ width: "100%" }}
           />
-          <p style={{ fontSize: "11px" }}>
+          {/* </div> */}
+          <p style={{ fontSize: "11px", textAlign: "left" }}>
             Please enter the valid Govt ID number this will be verified at the
             time of delivery
           </p>
         </CardContent>
-        <CardActions style={{ float: "right" }}>
+        <CardActions style={{ float: "right", paddingRight: "24px" }}>
           <Button
             type="submit"
             className={classes.button}

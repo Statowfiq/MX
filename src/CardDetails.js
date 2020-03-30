@@ -23,8 +23,20 @@ export default function CardDetails() {
       <div>
         <CardContent>
           <h4>Enter the card details</h4>
-          <TextField required id="standard-required" label="Card no" />
-          <TextField required id="standard-required" label="cvv" />
+          <TextField
+            required
+            id="standard-required"
+            label="Card no"
+            variant="outlined"
+            style={{ width: "100%" }}
+          />
+          <TextField
+            required
+            id="standard-required"
+            label="cvv"
+            variant="outlined"
+            style={{ width: "100%" }}
+          />
         </CardContent>
         <CardActions style={{ float: "right" }}>
           <Link to="/success">

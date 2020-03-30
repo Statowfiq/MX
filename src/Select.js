@@ -6,7 +6,7 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import CardHeader from "@material-ui/core/CardHeader";
-import Exchange from "./compare_arrows-24px.svg";
+import Leftarrow from "./leftarrow.png";
 import { Link } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 import currencies from "./currencies.json";
@@ -28,22 +28,6 @@ const useStyles = makeStyles(theme => ({
   },
   container: {
     display: "flex"
-  },
-  divL: {
-    boxSizing: "borderBox",
-    padding: "10px"
-    //  background: "#ffe9c6"
-    /* OPTIONAL WIDTH
-    width: 40% */
-  },
-  divR: {
-    boxSizing: "borderBox",
-    padding: "10px",
-    float: "right"
-    // fontWeight: "bold"
-    // background: "#ffdad8"
-    /* OPTIONAL WIDTH
-    width: 60% */
   }
 }));
 
@@ -64,7 +48,7 @@ export default function Select(props) {
     client.writeData({ data: { exchamount: exchamount } });
     client.writeData({ data: { amount: amount } });
 
-    history.push("/delopt");
+    history.push("/deliveryoption");
   };
 
   async function foo() {
@@ -95,7 +79,8 @@ export default function Select(props) {
 
   return (
     <div>
-      <CardHeader title="Exchange Money Now" />
+      <CardHeader title="Exchange Money Now" style={{ tesxtAlign: "left" }} />
+
       <CardContent>
         <form>
           {fromcurrency === tocurrency
@@ -107,7 +92,7 @@ export default function Select(props) {
             label="From"
             value={fromcurrency}
             onChange={handleFChange}
-            style={{ marginRight: "38px" }}
+            style={{ float: "left" }}
           >
             {currencies.map(option => (
               <MenuItem key={option.value} value={option.value}>
@@ -116,8 +101,8 @@ export default function Select(props) {
             ))}
           </TextField>
           <img
-            src={Exchange}
-            style={{ width: "42px", height: "60px", margin: "5px" }}
+            src={Leftarrow}
+            style={{ width: "42px", height: "42px", margin: "15px" }}
           />
           <TextField
             id="standard-select-currency"
@@ -125,7 +110,7 @@ export default function Select(props) {
             label="TO"
             value={tocurrency}
             onChange={handleTChange}
-            style={{ marginLeft: "38px" }}
+            style={{ float: "right" }}
           >
             {currencies.map(option => (
               <MenuItem key={option.value} value={option.value}>
@@ -142,61 +127,71 @@ export default function Select(props) {
             onChange={handleamount}
             value={amount}
             variant="outlined"
-            style={{ width: "238px" }}
+            style={{ width: "100%" }}
           />
           <br />
           <br />
-          <Grid container spacing={24}>
+          <Grid container spacing={24} justify="space-between">
             <Grid item xs={8} style={{ textAlign: "left" }}>
-              <p>Exchange rate</p>
+              <p style={{ marginBottom: "0" }}>Exchange rate</p>
             </Grid>
-            <Grid item xs={2} style={{ textAlign: "right" }}>
-              <p style={{ fontWeight: "bold" }}>{exchamount.toFixed(2)}</p>
+            <Grid item xs={3} style={{ textAlign: "right" }}>
+              <p style={{ fontWeight: "bold", marginBottom: "0" }}>
+                {exchamount.toFixed(2)}
+              </p>
             </Grid>
-            <Grid item xs={2} style={{ textAlign: "right" }}>
-              <p>{tocurrency}</p>
+            <Grid item xs={1} style={{ textAlign: "right" }}>
+              <p style={{ marginBottom: "0" }}>{tocurrency}</p>
             </Grid>
           </Grid>
-          <Grid container spacing={24}>
+          <Grid container spacing={24} justify="space-between">
             <Grid item xs={8} style={{ textAlign: "left" }}>
-              <p>Equivalent amount</p>
+              <p style={{ marginBottom: "0" }}>Equivalent amount</p>
             </Grid>
-            <Grid item xs={2} style={{ textAlign: "right" }}>
-              <p style={{ fontWeight: "bold" }}>
+            <Grid item xs={3} style={{ textAlign: "right" }}>
+              <p style={{ fontWeight: "bold", marginBottom: "0" }}>
                 {amount > 0
                   ? Number(exchamount.toFixed(2) * Number(amount)).toFixed(2)
                   : 0}
               </p>
             </Grid>
-            <Grid item xs={2} style={{ textAlign: "right" }}>
-              <p>{tocurrency}</p>
+            <Grid item xs={1} style={{ textAlign: "right" }}>
+              <p style={{ marginBottom: "0" }}>{tocurrency}</p>
             </Grid>
           </Grid>
-          <Grid container spacing={24}>
+          <Grid container spacing={12} justify="space-between">
             <Grid item xs={8} style={{ textAlign: "left" }}>
-              <p>Fee</p>
+              <p style={{ marginBottom: "0" }}>Fee</p>
             </Grid>
-            <Grid item xs={2} style={{ textAlign: "right" }}>
-              <p style={{ fontWeight: "bold" }}>
+            <Grid item xs={3} style={{ textAlign: "right" }}>
+              <p style={{ fontWeight: "bold", marginBottom: "0" }}>
                 {amount > 0 ? Number(amount) * 0.02 : 0}
               </p>
             </Grid>
-            <Grid item xs={2} style={{ textAlign: "right" }}>
-              <p>{fromcurrency}</p>
+            <Grid item xs={1} style={{ textAlign: "right" }}>
+              <p style={{ marginBottom: "0", marginLeft: "5px" }}>
+                {fromcurrency}
+              </p>
             </Grid>
           </Grid>
-          <Grid container spacing={24}>
+          <Grid container spacing={12} justify="space-between">
             <Grid item xs={8} style={{ textAlign: "left" }}>
-              <p>Total payable amount</p>
+              <p style={{ marginBottom: "0" }}>Total payable amount</p>
             </Grid>
-            <Grid item xs={2} style={{ textAlign: "right" }}>
-              <p style={{ fontWeight: "bold" }}>
-                {" "}
+            <Grid item xs={3} style={{ textAlign: "right" }}>
+              <p
+                style={{
+                  fontWeight: "bold",
+                  marginBottom: "0"
+                }}
+              >
                 {amount > 0 ? Number(amount) * 0.02 + Number(amount) : 0}
               </p>
             </Grid>
-            <Grid item xs={2} style={{ textAlign: "right" }}>
-              <p>{fromcurrency}</p>
+            <Grid item xs={1} style={{ textAlign: "right" }}>
+              <p style={{ marginBottom: "0", marginLeft: "5px" }}>
+                {fromcurrency}
+              </p>
             </Grid>
           </Grid>
           {/* <Typography variant="subtitle1">

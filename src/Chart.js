@@ -90,12 +90,17 @@ export default function Chart() {
   async function foo() {
     //  const base = "USD";
     const result = await axios(
-      `https://api.exchangeratesapi.io/history?start_at=2019-03-01&end_at=2019-03-28&symbols=${tocurrency}&base=${basecurrency}`
+      `https://api.exchangeratesapi.io/history?start_at=2019-03-15&end_at=2019-03-30&symbols=${tocurrency}&base=${basecurrency}`
     );
+    const x = Object.keys(sortKeys(result.data.rates));
+    var xax = [];
+    for (let i = 0; i < x.length; i++) {
+      xax.push(x[i].split("-")[2].toString() + "-MAR");
+    }
 
-    setxaxis(Object.keys(sortKeys(result.data.rates)));
+    setxaxis(xax);
     setyaxis(Object.values(result.data.rates).map(x => x[tocurrency]));
-    // console.log(Object.values(result.data.rates).map(x => x[currency]));
+    //console.log(xaxis);
   }
   useEffect(() => {
     foo();
@@ -124,7 +129,7 @@ export default function Chart() {
             style={{ float: "right", width: "110px" }}
             id="Currency rates with respect to base currency"
             select
-            label="TO Currency "
+            label="To Currency "
             value={tocurrency}
             onChange={handleTChange}
           >

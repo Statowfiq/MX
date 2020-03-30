@@ -34,10 +34,13 @@ export default function OrderSuccess() {
           />
           <h4>Order Successfull</h4>
           <p>
-            Congratulations, {name.name} Your order of {amount.amount}{" "}
-            {fromcurrency.fromcurrency} has been successfully. For doorstep
-            delivery cash will be deliverd within 1 hour at the requested
-            address.Thank you for placing your order with us. Happy Trading
+            Congratulations, <b>{name.name}</b> Your order of{" "}
+            <b>
+              {amount.amount} {fromcurrency.fromcurrency}
+            </b>{" "}
+            has been placed successfully. For doorstep delivery cash will be
+            deliverd within 1 hour at the requested address.Thank you for
+            placing your order with us. Happy Trading.
           </p>
         </CardContent>
       </div>

@@ -47,6 +47,9 @@ const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper
+  },
+  button: {
+    float: "right"
   }
 }));
 
@@ -58,7 +61,7 @@ export default function DeliveryOpts(props) {
     setValue(newValue);
   };
   const handleNext = e => {
-    history.push("/det");
+    history.push("/details");
   };
 
   return (
@@ -71,16 +74,26 @@ export default function DeliveryOpts(props) {
               <Tab label="Collect at Center" {...a11yProps(1)} />
             </Tabs>
           </AppBar>
-          <TabPanel value={value} index={0}>
+          <TabPanel value={value} index={0} style={{ padding: "0" }}>
             <Door />
           </TabPanel>
-          <TabPanel value={value} index={1}>
+          <TabPanel value={value} index={1} style={{ padding: "0" }}>
             <Center />
           </TabPanel>
+          <div style={{ paddingRight: "24px" }}>
+            <Button
+              className={classes.button}
+              variant="contained"
+              color="primary"
+              onClick={handleNext}
+            >
+              Continue
+            </Button>
+          </div>
         </div>
       </CardContent>
-      <CardActions style={{ float: "right" }}>
-        {/* <Link to="/det"> */}
+      {/* <CardActions style={{ float: "right" }}>
+      
         <Button
           className={classes.button}
           variant="contained"
@@ -89,9 +102,9 @@ export default function DeliveryOpts(props) {
         >
           Continue
         </Button>
-        {/* </Link> */}
+   
       </CardActions>
-      {/* </Card> */}
+     */}
     </div>
   );
 }
