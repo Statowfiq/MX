@@ -11,6 +11,16 @@ import currencies from "./currencies.json";
 const useStyles = makeStyles({
   root: {
     height: "600px"
+  },
+  cssLabel: {
+    color: "white !important"
+  },
+  notchedOutline: {
+    borderWidth: "1px",
+    borderColor: "white !important"
+  },
+  chartjsRenderMonitor: {
+    color: "white !important"
   }
 });
 
@@ -116,6 +126,17 @@ export default function Chart() {
             label="Base Currency"
             value={basecurrency}
             onChange={handleBChange}
+            variant="outlined"
+            InputProps={{
+              classes: {
+                notchedOutline: classes.notchedOutline
+              }
+            }}
+            InputLabelProps={{
+              classes: {
+                root: classes.cssLabel
+              }
+            }}
           >
             {currencies.map(option => (
               <MenuItem key={option.value} value={option.value}>
@@ -131,6 +152,17 @@ export default function Chart() {
             label="To Currency "
             value={tocurrency}
             onChange={handleTChange}
+            variant="outlined"
+            InputProps={{
+              classes: {
+                notchedOutline: classes.notchedOutline
+              }
+            }}
+            InputLabelProps={{
+              classes: {
+                root: classes.cssLabel
+              }
+            }}
           >
             {currencies.map(option => (
               <MenuItem key={option.value} value={option.value}>

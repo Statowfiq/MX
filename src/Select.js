@@ -117,7 +117,18 @@ export default function Select(props) {
             label="From"
             value={fromcurrency}
             onChange={handleFChange}
+            variant="outlined"
             style={{ float: "left" }}
+            InputProps={{
+              classes: {
+                notchedOutline: classes.notchedOutline
+              }
+            }}
+            InputLabelProps={{
+              classes: {
+                root: classes.cssLabel
+              }
+            }}
           >
             {currencies.map(option => (
               <MenuItem key={option.value} value={option.value}>
@@ -140,6 +151,17 @@ export default function Select(props) {
             value={tocurrency}
             onChange={handleTChange}
             style={{ float: "right" }}
+            variant="outlined"
+            InputProps={{
+              classes: {
+                notchedOutline: classes.notchedOutline
+              }
+            }}
+            InputLabelProps={{
+              classes: {
+                root: classes.cssLabel
+              }
+            }}
           >
             {currencies.map(option => (
               <MenuItem key={option.value} value={option.value}>
