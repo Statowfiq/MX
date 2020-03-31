@@ -71,11 +71,24 @@ export default function DeliveryOpts(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const { history } = props;
-  console.log("history other", history);
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
+  React.useEffect(() => {
+    if (window.performance) {
+      if (performance.navigation.type == 1) {
+        if (
+          window.confirm(
+            "The page that you're looking for used information that you entered. Returning to that page might cause any action that you took to be repeated. Do you want to continue?"
+          )
+        ) {
+          history.push("/");
+        }
+      }
+    }
+  }, []);
   return (
     <div>
       <CardContent>

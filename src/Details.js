@@ -68,7 +68,7 @@ export default function Details(props) {
       <div>
         <CardContent>
           {/* <div style={{ padding: "24px" }}> */}
-          <h4>Personal Details</h4>
+          <h3>Personal Details</h3>
           <TextField
             required
             id="standard-required"
@@ -133,7 +133,7 @@ export default function Details(props) {
           <TextField
             required
             id="standard-required"
-            label=" GovtId Number"
+            label="Govt ID Number"
             variant="outlined"
             style={{ width: "100%" }}
             onChange={handleid}

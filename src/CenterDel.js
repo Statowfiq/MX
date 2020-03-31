@@ -64,7 +64,7 @@ const List = ({ active, cen, onClick, onMouseEnter }) => {
 export default function Center(props) {
   const [chosen, setChosen] = React.useState();
   const { history } = props;
-  console.log("history here", history);
+
   return (
     <div>
       <h4>Select a Cashier Center</h4>

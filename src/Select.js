@@ -13,6 +13,7 @@ import Grid from "@material-ui/core/Grid";
 import { useApolloClient } from "@apollo/react-hooks";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
+
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -78,7 +79,6 @@ export default function Select(props) {
       `https://api.exchangeratesapi.io/latest?symbols=${tocurrency}&base=${fromcurrency}`
     );
     setExchAmount(result.data.rates[tocurrency]);
-    console.log(result.data.rates[tocurrency]);
   }
   const handleFChange = event => {
     setFromCurrency(event.target.value);
@@ -136,7 +136,7 @@ export default function Select(props) {
           <TextField
             id="standard-select-currency"
             select
-            label="TO"
+            label="To"
             value={tocurrency}
             onChange={handleTChange}
             style={{ float: "right" }}
@@ -241,7 +241,6 @@ export default function Select(props) {
         </form>
       </CardContent>
       <CardActions style={{ float: "right" }}>
-        {/* <Link to="/delopt"> */}
         <Button
           type="submit"
           className={classes.button}

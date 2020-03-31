@@ -45,7 +45,6 @@ export default function Door(props) {
   const handleNext = e => {
     if (street === "" || city === "" || state === "" || zip === "") {
       setOpen(true);
-      console.log("street", street, "city", city, "state", state, "zip", zip);
     } else {
       history.push("/details");
     }

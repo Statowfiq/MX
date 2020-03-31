@@ -56,7 +56,7 @@ export default function Chart() {
     for (var i = 0; i < key.length; i++) {
       obj_1[key[i]] = temp[key[i]];
     }
-    console.log(obj_1);
+
     return obj_1;
   }
   const data1 = {
@@ -100,7 +100,6 @@ export default function Chart() {
 
     setxaxis(xax);
     setyaxis(Object.values(result.data.rates).map(x => x[tocurrency]));
-    //console.log(xaxis);
   }
   useEffect(() => {
     foo();
