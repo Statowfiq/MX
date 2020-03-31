@@ -4,7 +4,7 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
-import { green } from "@material-ui/core/colors";
+
 import Radio from "@material-ui/core/Radio";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -24,15 +24,19 @@ import Paper from "@material-ui/core/Paper";
 
 const StyledTableCell = withStyles(theme => ({
   head: {
-    backgroundColor: "lightgrey",
-    color: "grey",
+    backgroundColor: theme.palette.text.disabled,
+    color: "white",
+
     padding: "10px",
-    paddingBottom: "5px"
+    paddingBottom: "5px",
+    fontWeight: "bold"
   },
   body: {
     fontSize: 14,
     padding: "10px",
-    paddingBottom: "5px"
+    paddingBottom: "5px",
+    backgroundColor: theme.palette.action.disabled,
+    color: "white"
   }
 }))(TableCell);
 
@@ -48,17 +52,21 @@ function createData(desc, amount, currency) {
   return { desc, amount, currency };
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   table: {
     minWidth: 100
+  },
+  button: {
+    float: "right",
+    backgroundColor: theme.palette.action.active
   }
-});
+}));
 
-const GreenRadio = withStyles({
+const WhiteRadio = withStyles({
   root: {
-    color: green[400],
+    color: "white",
     "&$checked": {
-      color: green[600]
+      color: "white"
     }
   },
   checked: {}
@@ -84,7 +92,7 @@ export default function OrderSummary(props) {
   const handleChange = event => {
     setSelectedValue(event.target.value);
   };
-  console.log(exchamount);
+
   const rows = [
     createData(
       "Exchange rate",
@@ -164,12 +172,12 @@ export default function OrderSummary(props) {
             >
               <FormControlLabel
                 value="cash"
-                control={<Radio />}
+                control={<WhiteRadio />}
                 label="Cash on delivery"
               />
               <FormControlLabel
                 value="card"
-                control={<Radio />}
+                control={<WhiteRadio />}
                 label="Card payment"
               />
             </RadioGroup>
@@ -181,7 +189,6 @@ export default function OrderSummary(props) {
             type="submit"
             className={classes.button}
             variant="contained"
-            color="primary"
             onClick={handleNext}
           >
             {selectedvalue === "cash" ? "Confirm" : "Proceed to pay"}

@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
-import Button from "@material-ui/core/Button";
+
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
@@ -48,8 +48,22 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper
   },
+  indicator: {
+    backgroundColor: "white"
+  },
   button: {
-    float: "right"
+    float: "right",
+    backgroundColor: theme.palette.action.active
+  },
+  app: {
+    backgroundColor: theme.palette.background.paper
+  },
+  cssLabel: {
+    color: "white !important"
+  },
+  notchedOutline: {
+    borderWidth: "1px",
+    borderColor: "white !important"
   }
 }));
 
@@ -57,54 +71,36 @@ export default function DeliveryOpts(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const { history } = props;
+  console.log("history other", history);
   const handleChange = (event, newValue) => {
     setValue(newValue);
-  };
-  const handleNext = e => {
-    history.push("/details");
   };
 
   return (
     <div>
       <CardContent>
         <div className={classes.root}>
-          <AppBar position="static">
-            <Tabs value={value} onChange={handleChange} aria-label=" tabs ">
+          <AppBar position="static" className={classes.app}>
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              aria-label=" tabs "
+              classes={{
+                indicator: classes.indicator
+              }}
+            >
               <Tab label="Door Step Delivery" {...a11yProps(0)} />
               <Tab label="Collect at Center" {...a11yProps(1)} />
             </Tabs>
           </AppBar>
           <TabPanel value={value} index={0} style={{ padding: "0" }}>
-            <Door />
+            <Door history={history} />
           </TabPanel>
           <TabPanel value={value} index={1} style={{ padding: "0" }}>
-            <Center />
+            <Center history={history} />
           </TabPanel>
-          <div style={{ paddingRight: "24px" }}>
-            <Button
-              className={classes.button}
-              variant="contained"
-              color="primary"
-              onClick={handleNext}
-            >
-              Continue
-            </Button>
-          </div>
         </div>
       </CardContent>
-      {/* <CardActions style={{ float: "right" }}>
-      
-        <Button
-          className={classes.button}
-          variant="contained"
-          color="primary"
-          onClick={handleNext}
-        >
-          Continue
-        </Button>
-   
-      </CardActions>
-     */}
     </div>
   );
 }

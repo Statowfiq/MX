@@ -13,9 +13,8 @@ import Details from "./Details.js";
 import OrderSummary from "./OrderSummary";
 import OrderSuccess from "./OrderSuccess";
 import CardDetails from "./CardDetails";
-import App from "./App.css";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   root: {
     // "& .MuiTextField-root": {
     //   margin: theme.spacing(1),
@@ -28,9 +27,10 @@ const useStyles = makeStyles({
     overflowY: "auto"
   },
   app: {
-    textAlign: "center"
+    textAlign: "center",
+    backgroundColor: theme.palette.background.default
   }
-});
+}));
 
 export default function Dashboard() {
   const classes = useStyles();

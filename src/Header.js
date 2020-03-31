@@ -14,6 +14,9 @@ const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1
   },
+  app: {
+    backgroundColor: theme.palette.background.paper
+  },
   menuButton: {
     marginRight: theme.spacing(2)
   },
@@ -43,7 +46,7 @@ export default function Header() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="static" className={classes.app}>
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
             Cashier

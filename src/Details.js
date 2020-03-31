@@ -6,28 +6,62 @@ import CardContent from "@material-ui/core/CardContent";
 import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import { useApolloClient } from "@apollo/react-hooks";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
-const useStyles = makeStyles({
-  footer: {
-    flexShrink: "0",
-    // textAlign: "center",
-    backgroundColor: "grey",
-    color: "white"
+const useStyles = makeStyles(theme => ({
+  button: {
+    float: "right",
+    backgroundColor: theme.palette.action.active
+  },
+  cssLabel: {
+    color: "white !important"
+  },
+  notchedOutline: {
+    borderWidth: "1px",
+    borderColor: "white !important"
   }
-});
+}));
 
 export default function Details(props) {
   const classes = useStyles();
   const client = useApolloClient();
-  const [name, setName] = React.useState();
+  const [name, setName] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [no, setNo] = React.useState("");
+  const [id, setId] = React.useState("");
   const { history } = props;
-  const handleNext = e => {
-    client.writeData({ data: { name: name } });
+  const [open, setOpen] = React.useState(false);
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
 
-    history.push("/summary");
+    setOpen(false);
+  };
+  const handleNext = e => {
+    if (name === "" || email === "" || no === "" || id === "") {
+      setOpen(true);
+    } else {
+      client.writeData({ data: { name: name } });
+
+      history.push("/summary");
+    }
   };
   const handlename = event => {
     setName(event.target.value);
+  };
+  const handlemail = event => {
+    setEmail(event.target.value);
+  };
+  const handleno = event => {
+    setNo(event.target.value);
+  };
+  const handleid = event => {
+    setId(event.target.value);
   };
   return (
     <>
@@ -43,6 +77,16 @@ export default function Details(props) {
             value={name}
             variant="outlined"
             style={{ width: "100%" }}
+            InputProps={{
+              classes: {
+                notchedOutline: classes.notchedOutline
+              }
+            }}
+            InputLabelProps={{
+              classes: {
+                root: classes.cssLabel
+              }
+            }}
           />
           <br />
           <br />
@@ -52,6 +96,17 @@ export default function Details(props) {
             label="Contact  number"
             variant="outlined"
             style={{ width: "100%" }}
+            onChange={handleno}
+            InputProps={{
+              classes: {
+                notchedOutline: classes.notchedOutline
+              }
+            }}
+            InputLabelProps={{
+              classes: {
+                root: classes.cssLabel
+              }
+            }}
           />
           <br />
           <br />
@@ -61,6 +116,17 @@ export default function Details(props) {
             label="E-mail"
             variant="outlined"
             style={{ width: "100%" }}
+            onChange={handlemail}
+            InputProps={{
+              classes: {
+                notchedOutline: classes.notchedOutline
+              }
+            }}
+            InputLabelProps={{
+              classes: {
+                root: classes.cssLabel
+              }
+            }}
           />
           <br />
           <br />
@@ -70,6 +136,17 @@ export default function Details(props) {
             label=" GovtId Number"
             variant="outlined"
             style={{ width: "100%" }}
+            onChange={handleid}
+            InputProps={{
+              classes: {
+                notchedOutline: classes.notchedOutline
+              }
+            }}
+            InputLabelProps={{
+              classes: {
+                root: classes.cssLabel
+              }
+            }}
           />
           {/* </div> */}
           <p style={{ fontSize: "11px", textAlign: "left" }}>
@@ -82,11 +159,15 @@ export default function Details(props) {
             type="submit"
             className={classes.button}
             variant="contained"
-            color="primary"
             onClick={handleNext}
           >
             Continue
           </Button>
+          <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+            <Alert onClose={handleClose} severity="error">
+              Enter all required fields
+            </Alert>
+          </Snackbar>
         </CardActions>
       </div>
     </>

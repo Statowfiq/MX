@@ -6,15 +6,16 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import CardHeader from "@material-ui/core/CardHeader";
-import Leftarrow from "./leftarrow.png";
-import { Link } from "react-router-dom";
-import Typography from "@material-ui/core/Typography";
+import Leftarrow from "./arrow1.svg";
 import currencies from "./currencies.json";
 import axios from "axios";
 import Grid from "@material-ui/core/Grid";
 import { useApolloClient } from "@apollo/react-hooks";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import { mergeClasses } from "@material-ui/styles";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -24,31 +25,51 @@ const useStyles = makeStyles(theme => ({
     height: "483px"
   },
   button: {
-    float: "right"
+    float: "right",
+    backgroundColor: theme.palette.action.active
   },
   container: {
     display: "flex"
+  },
+  cssLabel: {
+    color: "white !important"
+  },
+  notchedOutline: {
+    borderWidth: "1px",
+    borderColor: "white !important"
   }
 }));
 
 export default function Select(props) {
-  // const errors = validate(amount);
   const classes = useStyles();
   const [fromcurrency, setFromCurrency] = React.useState("USD");
-  const [tocurrency, setToCurrency] = React.useState("INR");
+  const [tocurrency, setToCurrency] = React.useState("AUD");
   const [amount, setAmount] = React.useState("");
   const [exchamount, setExchAmount] = React.useState(0);
   const isDisabled = Number(amount) <= 0;
   const client = useApolloClient();
   const { history } = props;
+  const [open, setOpen] = React.useState(false);
+
   const handleNext = e => {
     e.preventDefault();
-    client.writeData({ data: { tocurrency: tocurrency } });
-    client.writeData({ data: { fromcurrency: fromcurrency } });
-    client.writeData({ data: { exchamount: exchamount } });
-    client.writeData({ data: { amount: amount } });
+    if (Number(amount) <= 0) {
+      setOpen(true);
+    } else {
+      client.writeData({ data: { tocurrency: tocurrency } });
+      client.writeData({ data: { fromcurrency: fromcurrency } });
+      client.writeData({ data: { exchamount: exchamount } });
+      client.writeData({ data: { amount: amount } });
 
-    history.push("/deliveryoption");
+      history.push("/deliveryoption");
+    }
+  };
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
   };
 
   async function foo() {
@@ -80,7 +101,11 @@ export default function Select(props) {
   return (
     <div>
       <CardHeader title="Exchange Money Now" style={{ tesxtAlign: "left" }} />
-
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="error">
+          Enter a valid amount
+        </Alert>
+      </Snackbar>
       <CardContent>
         <form>
           {fromcurrency === tocurrency
@@ -102,7 +127,11 @@ export default function Select(props) {
           </TextField>
           <img
             src={Leftarrow}
-            style={{ width: "42px", height: "42px", margin: "15px" }}
+            style={{
+              // width: "42px",
+              height: "38px",
+              margin: "15px"
+            }}
           />
           <TextField
             id="standard-select-currency"
@@ -127,7 +156,18 @@ export default function Select(props) {
             onChange={handleamount}
             value={amount}
             variant="outlined"
+            type="Number"
             style={{ width: "100%" }}
+            InputProps={{
+              classes: {
+                notchedOutline: classes.notchedOutline
+              }
+            }}
+            InputLabelProps={{
+              classes: {
+                root: classes.cssLabel
+              }
+            }}
           />
           <br />
           <br />
@@ -141,7 +181,9 @@ export default function Select(props) {
               </p>
             </Grid>
             <Grid item xs={1} style={{ textAlign: "right" }}>
-              <p style={{ marginBottom: "0" }}>{tocurrency}</p>
+              <p style={{ marginBottom: "0", marginLeft: "5px" }}>
+                {tocurrency}
+              </p>
             </Grid>
           </Grid>
           <Grid container spacing={24} justify="space-between">
@@ -156,7 +198,9 @@ export default function Select(props) {
               </p>
             </Grid>
             <Grid item xs={1} style={{ textAlign: "right" }}>
-              <p style={{ marginBottom: "0" }}>{tocurrency}</p>
+              <p style={{ marginBottom: "0", marginLeft: "5px" }}>
+                {tocurrency}
+              </p>
             </Grid>
           </Grid>
           <Grid container spacing={12} justify="space-between">
@@ -194,26 +238,6 @@ export default function Select(props) {
               </p>
             </Grid>
           </Grid>
-          {/* <Typography variant="subtitle1">
-            Exchange rate:
-            {exchamount.toFixed(2)} {tocurrency}
-          </Typography>
-          <Typography>
-            Equivalent amount:
-            {amount > 0
-              ? Number(exchamount.toFixed(2) * Number(amount)).toFixed(2)
-              : 0}{" "}
-            {tocurrency}
-          </Typography>
-
-          <Typography>
-            Fee:{amount > 0 ? Number(amount) * 0.02 : 0} {fromcurrency}
-          </Typography>
-          <Typography>
-            Total payable amount:
-            {amount > 0 ? Number(amount) * 0.02 + Number(amount) : 0}{" "}
-            {fromcurrency}
-          </Typography> */}
         </form>
       </CardContent>
       <CardActions style={{ float: "right" }}>
@@ -222,13 +246,12 @@ export default function Select(props) {
           type="submit"
           className={classes.button}
           variant="contained"
-          color="primary"
+          // color="primary"
           onClick={handleNext}
-          disabled={isDisabled}
+          // disabled={isDisabled}
         >
           Continue
         </Button>
-        {/* </Link> */}
       </CardActions>
       {/* </Card> */}
     </div>

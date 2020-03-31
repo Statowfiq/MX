@@ -5,6 +5,14 @@ import Dashboard from "./Dashboard";
 import { ApolloProvider } from "@apollo/react-hooks";
 import { ApolloClient } from "apollo-client";
 import { InMemoryCache } from "apollo-cache-inmemory";
+import { createMuiTheme } from "@material-ui/core/styles";
+import { ThemeProvider } from "@material-ui/styles";
+
+const darkTheme = createMuiTheme({
+  palette: {
+    type: "dark"
+  }
+});
 
 function App() {
   const cache = new InMemoryCache();
@@ -15,7 +23,9 @@ function App() {
 
   return (
     <ApolloProvider client={client}>
-      <Dashboard />
+      <ThemeProvider theme={darkTheme}>
+        <Dashboard />
+      </ThemeProvider>
     </ApolloProvider>
   );
 }
